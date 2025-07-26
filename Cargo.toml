@@ -1,0 +1,10 @@
+[package]
+name = "crypto-rs"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+aes-gcm = "0.10"       # AES-GCM encryption
+aes = "0.8"            # AES block cipher
+rand = "0.8"           # for random nonce generation
+base64 = "0.21"        # for encoding the output
