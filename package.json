@@ -1,0 +1,21 @@
+{
+  "name": "crypto-rs",
+  "version": "0.1.0",
+  "description": "A simple command-line utility for encrypting and decrypting strings using **AES-256-GCM** with a 32-byte key. Designed to be easily integrated into other scripts or applications via standard input/output.",
+  "homepage": "https://github.com/fox5352/crypto-rs#readme",
+  "bugs": {
+    "url": "https://github.com/fox5352/crypto-rs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fox5352/crypto-rs.git"
+  },
+  "license": "Apache-2.0",
+  "author": "christopher james vos",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "node index.js"
+  }
+}
