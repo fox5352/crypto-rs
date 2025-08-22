@@ -43,17 +43,28 @@ fn decrypt(key: &[u8], encrypted_b64: &str) -> Result<String, &'static str> {
 }
 
 fn main() {
-    let mut args = std::env::args();
-    args.next(); // skip program name
+    let args: Vec<String> = std::env::args().collect();
 
-    let arg_count = args.len();
-    if arg_count != 2 && arg_count != 3 {
-        eprintln!("Error: expected 2 or 3 arguments: <key> <data> [--decrypt]");
+    // args[0] is program name, real args start at 1
+    if args.len() == 2 && (args[1] == "--help" || args[1] == "-h") {
+        println!(
+            "Usage: program <key> <data> [--decrypt]\n\n\
+             Arguments:\n\
+               <key>      32-byte key for AES-256 (exactly 32 characters)\n\
+               <data>     Data to encrypt or decrypt (string or base64)\n\
+               --decrypt  Decrypt instead of encrypt\n\
+               --help,-h  Show this help message\n"
+        );
+        return;
+    }
+
+    if args.len() != 3 && args.len() != 4 {
+        eprintln!("Error: expected 2 or 3 arguments. Use --help for usage.");
         std::process::exit(1);
     }
 
-    let key = args.next().unwrap();
-    let input = args.next().unwrap();
+    let key = &args[1];
+    let input = &args[2];
 
     if key.len() != 32 {
         eprintln!("Error: Key must be 32 bytes for AES-256");
@@ -61,8 +72,8 @@ fn main() {
     }
 
     let key_bytes = key.as_bytes();
-    let output = if arg_count == 3 {
-        match decrypt(key_bytes, &input) {
+    let output = if args.len() == 4 {
+        match decrypt(key_bytes, input) {
             Ok(text) => text,
             Err(err) => {
                 eprintln!("Decryption error: {}", err);
@@ -70,7 +81,7 @@ fn main() {
             }
         }
     } else {
-        match encrypt(key_bytes, &input) {
+        match encrypt(key_bytes, input) {
             Ok(text) => text,
             Err(err) => {
                 eprintln!("Encryption error: {}", err);
@@ -79,6 +90,5 @@ fn main() {
         }
     };
 
-    // ⬇️ This is the important part
     println!("{}", output);
 }
