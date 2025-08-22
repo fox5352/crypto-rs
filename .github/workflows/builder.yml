@@ -53,7 +53,7 @@ jobs:
           elif [ "${{ runner.os }}" == "macOS" ]; then
             cp target/release/crypto-rs crypto-rs-macos
           elif [ "${{ runner.os }}" == "Windows" ]; then
-            copy target\release\crypto-rs.exe crypto-rs-windows.exe
+            cp target/release/crypto-rs.exe crypto-rs-windows.exe
           fi
         shell: bash
 
